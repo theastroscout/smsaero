@@ -7,7 +7,8 @@ let conf = {
 	sign: "SMS Aero",
 	email: "YOUR_EMAIL",
 	key: "YOUR_API_KEY",
-	url: "https://gate.smsaero.ru/v2/",
+	host: "gate.smsaero.ru",
+	ver: "v2",
 	respondType: "json"
 };
 for(let p of process.argv){
@@ -33,21 +34,30 @@ let app = {
 		}
 
 		// Send a Message
-		let post = {
+		let postMessage = {
 			number: "79990000000",
 			text: "Test Msg",
 			shortLink: 1
 		};
-		let sendResult = await smsaero.send(post, true); // @ {} Options, (bool) Test Mode
-		console.log("\nMessage Send Result", sendResult);
+		let sendMessageResult = await smsaero.send(postMessage, true); // @ {} Options, (bool) Test Mode
+		console.log("\nMessage Send Result", sendMessageResult);
 
 		// Retrieve Message Status
-		if(sendResult.success === true){
+		if(sendMessageResult.success === true){
 			setTimeout(async () => {
-				let messageStatus = await smsaero.status(sendResult.data.id, true); // @ Message ID, (bool) Test Mode
+				let messageStatus = await smsaero.status(sendMessageResult.data.id, true); // @ Message ID, (bool) Test Mode
 				console.log("\nMessage Status", messageStatus);
 			}, 1000);
 		}
+
+		// Send Messages
+		let postMessages = {
+			number: ["79990000000","79990000001"],
+			text: "Test Msg",
+			shortLink: 1
+		};
+		let sendMessagesResult = await smsaero.send(postMessages, true); // @ {} Options, (bool) Test Mode
+		console.log("\nMessages Send Result", sendMessagesResult);
 	}
 };
 

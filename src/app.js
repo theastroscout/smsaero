@@ -15,7 +15,6 @@
 		sign: "SMS Aero",
 		email: "YOUR_EMAIL",
 		key: "YOUR_API_KEY",
-		url: "https://gate.smsaero.ru/v2/",
 		host: "gate.smsaero.ru",
 		ver: "v2",
 		respondType: "json" // JSON or XML
@@ -46,6 +45,13 @@
 	// Send Message
 	smsaero.send = async (params, test=false) => {
 		params.sign = params.sign || smsaero.conf.sign;
+		if(typeof params.number === "object"){
+			params.numbers = params.number;
+			delete params.number;
+		}
+		
+		console.log(params);
+
 		let post = {
 			method: test===true?"sms/testsend":"sms/send",
 			params: params
@@ -69,18 +75,17 @@
 		smsaero.check(options.method);
 
 		return new Promise((resolve) => {
-			let params = "";
-			if(options.params){
-				params = "?"+encodeURI(Object.entries(options.params).map(e=>e.join("=")).join("&"));
-			}
+			let postData = JSON.stringify(options.params || {});
 
 			let post = {
 				hostname: options.host || smsaero.conf.host,
 				port: 443,
-				path: `/${smsaero.conf.ver}/${options.method}${params}`,
-				method: "GET",
+				path: `/${smsaero.conf.ver}/${options.method}`,
+				method: "POST",
 				headers: {
-					"Authorization": "Basic " + Buffer.from(smsaero.conf.email + ":" + smsaero.conf.key).toString("base64")
+					"Authorization": "Basic " + Buffer.from(smsaero.conf.email + ":" + smsaero.conf.key).toString("base64"),
+					"Content-Type": "application/json",
+					"Content-Length": postData.length
 				}
 			};
 
@@ -115,6 +120,7 @@
 				});
 			});
 
+			req.write(postData);
 			req.end();
 		});
 	};

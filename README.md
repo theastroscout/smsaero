@@ -15,7 +15,8 @@ const conf = {
 	sign: "SMS Aero",
 	email: "YOU_EMAIL",
 	key: "API_KEY",
-	url: "https://gate.smsaero.ru/v2/",
+	host: "gate.smsaero.ru",
+	ver: "v2",
 	respondType: "json"
 };
 const smsaero = require("@hqdaemon/smsaero")(conf);
@@ -28,68 +29,91 @@ console.log("Auth Result", authResult);
 
 /*
 JSON {
-  success: true,
-  data: null,
-  message: 'Successful authorization.',
-  statusCode: 200
+	success: true,
+	data: null,
+	message: 'Successful authorization.',
+	statusCode: 200
 }
 */
 ```
 
-## Send Message
+## Send Messages
 ```js
 let post = {
-	number: "79990000000",
+	number: "79990000000", // Or Phone Numbers Array ["79990000000","79990000001"]
 	text: "Test Msg",
 	shortLink: 1
 };
-let sendResult = await smsaero.send(post, true); // @ {} Options, (bool) Test Mode
-console.log("\nMessage Send Result", sendResult);
+let sendMessageResult = await smsaero.send(post, true); // @ {} Options, (bool) Test Mode
+console.log("\nMessage Send Result", sendMessageResult);
 
 /*
 JSON {
-  success: true,
-  data: {
-    id: 686325,
-    from: 'SMS Aero',
-    number: '79990000000',
-    text: 'Test Msg',
-    status: 1,
-    extendStatus: 'delivery',
-    channel: 'FREE SIGN',
-    cost: 2.99,
-    dateCreate: 1622650986,
-    dateSend: 1622650986
-  },
-  message: null,
-  statusCode: 200
+	success: true,
+	data: {
+		id: 686325,
+		from: 'SMS Aero',
+		number: '79990000000',
+		text: 'Test Msg',
+		status: 1,
+		extendStatus: 'delivery',
+		channel: 'FREE SIGN',
+		cost: 2.99,
+		dateCreate: 1622650986,
+		dateSend: 1622650986
+	},
+	message: null,
+	statusCode: 200
+}
+
+Multiple numbers
+
+JSON {
+	success: true,
+	data: [
+		{
+				id: 686325,
+				from: 'SMS Aero',
+				number: '79990000000',
+				text: 'Test Msg',
+				status: 1,
+				extendStatus: 'delivery',
+				channel: 'FREE SIGN',
+				cost: 2.99,
+				dateCreate: 1622650986,
+				dateSend: 1622650986
+		},
+		{...}
+	],
+	message: null,
+	statusCode: 200
 }
 */
 ```
 
 ## Message Status
 ```js
-let messageID = 1;
+let messageID = 1; // ID from sendMessageResult.data.id or sendMessageResult.data[0].id for multiple numbers
 let messageStatus = await smsaero.status(messageID, true); // @ Message ID, (bool) Test Mode
 console.log("\nMessage Status", messageStatus);
 
 /*
 JSON {
-  success: true,
-  data: {
-    id: 686325,
-    from: 'SMS Aero',
-    number: 79990000000,
-    text: 'Test Msg',
-    status: 1,
-    extendStatus: 'delivery',
-    channel: 'FREE SIGN',
-    cost: 2.99,
-    dateCreate: 1622650986,
-    dateSend: 1622650986
-  },
-  message: null,
-  statusCode: 200
+	success: true,
+	data: {
+		id: 686325,
+		from: 'SMS Aero',
+		number: 79990000000,
+		text: 'Test Msg',
+		status: 1,
+		extendStatus: 'delivery',
+		channel: 'FREE SIGN',
+		cost: 2.99,
+		dateCreate: 1622650986,
+		dateSend: 1622650986
+	},
+	message: null,
+	statusCode: 200
 }
 */
 ```
