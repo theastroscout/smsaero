@@ -1,5 +1,5 @@
 {
-	"name": "smsaero",
+	"name": "@hqdaemon/smsaero",
 	"version": "1.0.0",
 	"description": "SMS Aero API Integration through Node.js",
 	"main": "src/app.js",
