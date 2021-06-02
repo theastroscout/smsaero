@@ -12,12 +12,12 @@ Retrieve your personal API key: https://smsaero.ru/cabinet/settings/apikey/
 
 ```js
 const conf = {
-	sign: "SMS Aero",
-	email: "YOU_EMAIL",
-	key: "API_KEY",
-	host: "gate.smsaero.ru",
-	ver: "v2",
-	respondType: "json"
+  sign: "SMS Aero",
+  email: "YOU_EMAIL",
+  key: "API_KEY",
+  host: "gate.smsaero.ru",
+  ver: "v2",
+  respondType: "json"
 };
 const smsaero = require("@hqdaemon/smsaero")(conf);
 ```
@@ -29,10 +29,10 @@ console.log("Auth Result", authResult);
 
 /*
 JSON {
-	success: true,
-	data: null,
-	message: 'Successful authorization.',
-	statusCode: 200
+  success: true,
+  data: null,
+  message: 'Successful authorization.',
+  statusCode: 200
 }
 */
 ```
@@ -40,53 +40,53 @@ JSON {
 ## Send Messages
 ```js
 let post = {
-	number: "79990000000", // Or Phone Numbers Array ["79990000000","79990000001"]
-	text: "Test Msg",
-	shortLink: 1
+  number: "79990000000", // Or Phone Numbers Array ["79990000000","79990000001"]
+  text: "Test Msg",
+  shortLink: 1
 };
 let sendMessageResult = await smsaero.send(post, true); // @ {} Options, (bool) Test Mode
 console.log("\nMessage Send Result", sendMessageResult);
 
 /*
 JSON {
-	success: true,
-	data: {
-		id: 686325,
-		from: 'SMS Aero',
-		number: '79990000000',
-		text: 'Test Msg',
-		status: 1,
-		extendStatus: 'delivery',
-		channel: 'FREE SIGN',
-		cost: 2.99,
-		dateCreate: 1622650986,
-		dateSend: 1622650986
-	},
-	message: null,
-	statusCode: 200
+  success: true,
+  data: {
+    id: 686325,
+    from: 'SMS Aero',
+    number: '79990000000',
+    text: 'Test Msg',
+    status: 1,
+    extendStatus: 'delivery',
+    channel: 'FREE SIGN',
+    cost: 2.99,
+    dateCreate: 1622650986,
+    dateSend: 1622650986
+  },
+  message: null,
+  statusCode: 200
 }
 
 Multiple numbers
 
 JSON {
-	success: true,
-	data: [
-		{
-				id: 686325,
-				from: 'SMS Aero',
-				number: '79990000000',
-				text: 'Test Msg',
-				status: 1,
-				extendStatus: 'delivery',
-				channel: 'FREE SIGN',
-				cost: 2.99,
-				dateCreate: 1622650986,
-				dateSend: 1622650986
-		},
-		{...}
-	],
-	message: null,
-	statusCode: 200
+  success: true,
+  data: [
+    {
+        id: 686325,
+        from: 'SMS Aero',
+        number: '79990000000',
+        text: 'Test Msg',
+        status: 1,
+        extendStatus: 'delivery',
+        channel: 'FREE SIGN',
+        cost: 2.99,
+        dateCreate: 1622650986,
+        dateSend: 1622650986
+    },
+    {...}
+  ],
+  message: null,
+  statusCode: 200
 }
 */
 ```
@@ -99,21 +99,21 @@ console.log("\nMessage Status", messageStatus);
 
 /*
 JSON {
-	success: true,
-	data: {
-		id: 686325,
-		from: 'SMS Aero',
-		number: 79990000000,
-		text: 'Test Msg',
-		status: 1,
-		extendStatus: 'delivery',
-		channel: 'FREE SIGN',
-		cost: 2.99,
-		dateCreate: 1622650986,
-		dateSend: 1622650986
-	},
-	message: null,
-	statusCode: 200
+  success: true,
+  data: {
+    id: 686325,
+    from: 'SMS Aero',
+    number: 79990000000,
+    text: 'Test Msg',
+    status: 1,
+    extendStatus: 'delivery',
+    channel: 'FREE SIGN',
+    cost: 2.99,
+    dateCreate: 1622650986,
+    dateSend: 1622650986
+  },
+  message: null,
+  statusCode: 200
 }
 */
 ```
