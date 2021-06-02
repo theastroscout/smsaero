@@ -1,0 +1,25 @@
+{
+	"name": "smsaero",
+	"version": "1.0.0",
+	"description": "SMS Aero API Integration through Node.js",
+	"main": "src/app.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "node test/app"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hqdaemon/smsaero.git"
+	},
+	"author": {
+		"name": "HQ",
+		"url": "https://hqmode.com"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/hqdaemon/smsaero/issues"
+	},
+	"homepage": "https://github.com/hqdaemon/smsaero#readme"
+}
